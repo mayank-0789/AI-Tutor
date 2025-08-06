@@ -3,10 +3,15 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Menu, X, BookOpen } from "lucide-react"
+import { signIn, signOut, useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
+
 
 const Navbar = () => {
   const [scrollY, setScrollY] = useState(0)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { data: session } = useSession()
+  const router = useRouter()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -179,24 +184,21 @@ const Navbar = () => {
                   transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                 }}
               >
-                
-
-                <Link
-                  href="/signup"
-                  className="relative bg-slate-900/90 backdrop-blur-sm text-white rounded-xl font-medium tracking-wide transition-all duration-300 hover:bg-slate-800/90 hover:shadow-xl hover:shadow-slate-900/20 hover:-translate-y-0.5 group overflow-hidden border border-white/10"
-                  style={{
-                    padding: `${10 - scrollProgress * 2}px ${24 - scrollProgress * 4}px`,
-                    fontSize: `${14 - scrollProgress * 1}px`,
-                    fontFamily: "var(--font-geist-sans)",
-                    fontWeight: "600",
-                    letterSpacing: "0.005em",
-                    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                  }}
-                >
-                  <span className="relative z-10">Sign up</span>
-                  <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-white/5 to-transparent opacity-60" />
-                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
-                </Link>
+                {!session?.user && (
+                  <button
+                    onClick={() => signIn("google")}
+                    className="relative bg-slate-900/90 backdrop-blur-sm text-white font-medium rounded-lg transition-all duration-200 hover:bg-slate-800/90 group overflow-hidden border border-white/10 cursor-pointer"
+                    style={{
+                      padding: `${8 - scrollProgress * 2}px ${16 - scrollProgress * 4}px`,
+                      fontSize: `${14 - scrollProgress * 1}px`,
+                      fontFamily: "var(--font-geist-sans)",
+                      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                    }}
+                  >
+                    <span className="relative z-10">Sign in</span>
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-white/5 to-transparent opacity-60" />
+                  </button>
+                )}
               </div>
 
               {/* Mobile Menu Button */}
@@ -256,15 +258,34 @@ const Navbar = () => {
             ))}
 
             <div className="border-t border-white/20 pt-4 mt-4 space-y-2">
-              
-              <Link
-                href="/signup"
-                className="relative block w-full p-3 text-center bg-slate-900/90 backdrop-blur-sm text-white rounded-xl font-medium text-sm tracking-wide transition-all duration-200 hover:bg-slate-800/90 group overflow-hidden border border-white/10"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <span className="relative z-10">Sign up</span>
-                <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-white/5 to-transparent opacity-60" />
-              </Link>
+              {session?.user ? (
+                <div className="space-y-2">
+                  <div className="p-3 text-center text-sm text-slate-700 bg-white/10 rounded-xl border border-white/20">
+                    {session.user.email}
+                  </div>
+                  <button
+                    onClick={() => {
+                      signOut();
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="relative block w-full p-3 text-center bg-slate-900/90 backdrop-blur-sm text-white rounded-xl font-medium text-sm tracking-wide transition-all duration-200 hover:bg-slate-800/90 group overflow-hidden border border-white/10"
+                  >
+                    <span className="relative z-10">Sign out</span>
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-white/5 to-transparent opacity-60" />
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    signIn("google");
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="relative block w-full p-3 text-center bg-slate-900/90 backdrop-blur-sm text-white rounded-xl font-medium text-sm tracking-wide transition-all duration-200 hover:bg-slate-800/90 group overflow-hidden border border-white/10"
+                >
+                  <span className="relative z-10">Sign in with Google</span>
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-white/5 to-transparent opacity-60" />
+                </button>
+              )}
             </div>
           </div>
         </div>

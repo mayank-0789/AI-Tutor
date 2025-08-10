@@ -5,23 +5,61 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
     <Navbar />
 
-    {/* Enhanced demo content with glass effects */}
-    <div className="pt-24 px-6">
-      <div className="max-w-4xl mx-auto space-y-20">
-        <section id="hero" className="text-center py-16">
-          <h1 className="text-5xl font-bold text-slate-900 mb-6 tracking-tight">Welcome to TutorAI</h1>
-          <p className="text-xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Experience personalized learning with our AI-powered tutoring platform designed for modern education.
-          </p>
-          <div className="relative bg-white/30 backdrop-blur-xl rounded-2xl p-8 border border-white/40 shadow-xl shadow-slate-900/5">
-            {/* Glass overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-white/5 to-white/10 rounded-2xl" />
-            <p className="relative z-10 text-slate-700 leading-relaxed">
-              Scroll down to see the navbar's smooth transformation with professional glass morphism styling and
-              refined interactions.
-            </p>
+    {/* Hero Section */}
+    <div className="pt-16 px-6 pb-16">
+      <div className="max-w-6xl mx-auto">
+        <section id="hero" className="text-center">
+          {/* Stats Badge */}
+          <div className="mb-8">
+            <div className="relative inline-flex items-center gap-2 bg-white/25 backdrop-blur-2xl border border-white/40 rounded-full px-6 py-3 text-sm text-slate-800 shadow-2xl shadow-slate-900/15 overflow-hidden">
+              {/* Inner glass highlight */}
+              <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-white/10 to-transparent rounded-full"></div>
+              <span className="relative z-10 font-medium">Used by over 10,000 students</span>
+              <span className="relative z-10 text-amber-500">🤝</span>
+            </div>
           </div>
+
+          {/* Main Heading */}
+          <h1 className="text-5xl md:text-7xl font-bold text-slate-900 mb-8 tracking-tight leading-tight">
+            The{" "}
+            <span className="relative inline-block">
+              <span className="relative z-10 text-black px-3 py-1">
+                No.1 Undetectable AI
+              </span>
+              <span className="absolute inset-0 bg-gradient-to-r from-amber-400 via-amber-400 via-amber-300 to-transparent rounded-lg transform -skew-x-12"></span>
+            </span>
+            <br />
+            for Learning & Tutoring
+          </h1>
+
+          {/* Subtitle */}
+          <p className="text-xl text-slate-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+            TutorAI is your AI-powered shortcut to acing your studies
+            <br />
+            (without grinding through endless practice problems).
+          </p>
+
+          {/* CTA Button */}
+          <div className="mb-6">
+            <button className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-400 to-amber-500 text-black px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 border border-amber-300/50">
+              🎯 Get Started for Free
+            </button>
+          </div>
+
+          {/* Supporting text */}
+          <p className="text-sm text-slate-500">
+            or{" "}
+            <a href="#features" className="underline hover:text-slate-700 transition-colors">
+              explore all supporting features
+            </a>
+          </p>
         </section>
+      </div>
+    </div>
+
+    {/* Rest of content */}
+    <div className="px-6">
+      <div className="max-w-4xl mx-auto space-y-20">
 
         <section id="features" className="py-16">
           <h2 className="text-3xl font-bold text-center mb-12 text-slate-900 tracking-tight">Why Choose TutorAI</h2>

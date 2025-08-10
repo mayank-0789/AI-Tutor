@@ -94,6 +94,7 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+
     async redirect({ url, baseUrl }) {
       // Redirect to dashboard after successful sign in
       if (url === baseUrl || url === `${baseUrl}/`) {
@@ -101,6 +102,7 @@ export const authOptions: NextAuthOptions = {
       }
       return url.startsWith(baseUrl) ? url : baseUrl;
     },
+    
   },
   session: {
     strategy: "jwt",
